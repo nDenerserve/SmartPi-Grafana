@@ -1,0 +1,181 @@
+ 
+{
+  "datasource": {
+    "type": "marcusolsson-json-datasource",
+    "uid": "b3ad3126-7093-4fd8-8e82-cea07eb311b3"
+  },
+  "fieldConfig": {
+    "defaults": {
+      "mappings": [],
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "green",
+            "value": null
+          },
+          {
+            "color": "#EAB839",
+            "value": 200
+          },
+          {
+            "color": "#6ED0E0",
+            "value": 1000
+          },
+          {
+            "color": "#EF843C",
+            "value": 5000
+          },
+          {
+            "color": "#E24D42",
+            "value": 10000
+          }
+        ]
+      },
+      "color": {
+        "mode": "thresholds"
+      },
+      "fieldMinMax": false,
+      "unit": "watt"
+    },
+    "overrides": []
+  },
+  "gridPos": {
+    "h": 11,
+    "w": 3,
+    "x": 0,
+    "y": 0
+  },
+  "id": 5,
+  "options": {
+    "reduceOptions": {
+      "values": false,
+      "calcs": [
+        "lastNotNull"
+      ],
+      "fields": "/.*/"
+    },
+    "orientation": "vertical",
+    "textMode": "auto",
+    "wideLayout": true,
+    "colorMode": "value",
+    "graphMode": "area",
+    "justifyMode": "center",
+    "text": {}
+  },
+  "pluginVersion": "10.2.1",
+  "targets": [
+    {
+      "cacheDurationSeconds": 0,
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "b3ad3126-7093-4fd8-8e82-cea07eb311b3"
+      },
+      "fields": [
+        {
+          "jsonPath": "$.datasets[*].phases[0].values[2].data",
+          "language": "jsonpath",
+          "name": "Power 1",
+          "type": "number"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[1].values[2].data",
+          "language": "jsonpath",
+          "name": "Power 2",
+          "type": "number"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[2].values[2].data",
+          "language": "jsonpath",
+          "name": "Power 3",
+          "type": "number"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[0].values[0].data",
+          "language": "jsonpath",
+          "name": "Current 1"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[1].values[0].data",
+          "language": "jsonpath",
+          "name": "Current 2"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[2].values[0].data",
+          "language": "jsonpath",
+          "name": "Current 3"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[0].values[1].data",
+          "language": "jsonpath",
+          "name": "Voltage 1"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[1].values[1].data",
+          "language": "jsonpath",
+          "name": "Voltage 2"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[2].values[1].data",
+          "language": "jsonpath",
+          "name": "Voltage 3"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[0].values[4].data",
+          "language": "jsonpath",
+          "name": "Frequency 1"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[1].values[4].data",
+          "language": "jsonpath",
+          "name": "Frequency 2"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[2].values[4].data",
+          "language": "jsonpath",
+          "name": "Frequency 3"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[0].values[3].data",
+          "language": "jsonpath",
+          "name": "CosPhi 1"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[1].values[3].data",
+          "language": "jsonpath",
+          "name": "CosPhi 2"
+        },
+        {
+          "jsonPath": "$.datasets[*].phases[2].values[3].data",
+          "language": "jsonpath",
+          "name": "CosPhi 3"
+        }
+      ],
+      "hide": false,
+      "method": "GET",
+      "queryParams": "",
+      "refId": "A",
+      "urlPath": "/api/all/all/now"
+    }
+  ],
+  "title": "Power",
+  "transformations": [
+    {
+      "id": "calculateField",
+      "options": {
+        "alias": "Total Power",
+        "mode": "reduceRow",
+        "reduce": {
+          "include": [
+            "Power 1",
+            "Power 2",
+            "Power 3"
+          ],
+          "reducer": "sum"
+        },
+        "replaceFields": true
+      }
+    }
+  ],
+  "type": "stat"
+}
