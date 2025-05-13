@@ -1,2 +1,2 @@
-# SmartPi-Dashboard
-Grafana Dashboard for SmartPi
+# SmartPi-Grafana
+Grafana scripts for SmartPi
